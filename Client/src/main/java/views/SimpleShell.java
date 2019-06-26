@@ -7,16 +7,25 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.IdController;
 import controllers.MessageController;
 
-// Simple Shell is a Console view for YouAreEll.
+// Simple Shell is a Console view for views.YouAreEll.
 public class SimpleShell {
 
 
     public static void prettyPrint(String output) {
+        ObjectMapper mapper = new ObjectMapper();
+        try{
+            Object json = mapper.readValue(output, Object.class);
+            String printOut = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+            System.out.println(printOut);
+        }catch(IOException x){
+            x.printStackTrace();
+        }
         // yep, make an effort to format things nicely, eh?
-        System.out.println(output);
+
     }
     public static void main(String[] args) throws java.io.IOException {
 
@@ -27,7 +36,7 @@ public class SimpleShell {
                 (new InputStreamReader(System.in));
 
         ProcessBuilder pb = new ProcessBuilder();
-        List<String> history = new ArrayList<String>();
+        List<String> history = new ArrayList<>();
         int index = 0;
         //we break out with <ctrl c>
         while (true) {
