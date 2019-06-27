@@ -3,15 +3,16 @@ package views;
 
 
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.*;
-import jdk.internal.org.objectweb.asm.TypeReference;
 import models.Id;
+import models.Message;
 import okhttp3.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -68,8 +69,8 @@ public class YouAreEll {
                    .url(server)
                    .build();
            try (Response response = client.newCall(request).execute()) {
-               //idCtrl = objectMapper.readValue(response.body().string(), idCtrl.getClass());
-               return response.body().string();
+               String test = response.body().string();
+               return test;
            }catch (IOException e){
                e.printStackTrace();
            }
@@ -92,4 +93,13 @@ public class YouAreEll {
 
         return "nada";
     }
+
+    public IdController getIdCtrl(){
+        return this.idCtrl;
+    }
+
+    public MessageController getMsgCtrl(){
+        return this.msgCtrl;
+    }
+
 }

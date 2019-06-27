@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.IdController;
 import controllers.MessageController;
@@ -15,14 +16,14 @@ import models.Message;
 
 // Simple Shell is a Console view for views.YouAreEll.
 public class SimpleShell {
-    MessageController msgCont = new MessageController();
-    IdController idCont = new IdController();
+
 
     public static void prettyPrint(String output) {
         ObjectMapper mapper = new ObjectMapper();
+
+
         try{
             Object json = mapper.readValue(output, Object.class);
-
             String printOut = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
             System.out.println(printOut);
         }catch(IOException x){
@@ -34,6 +35,9 @@ public class SimpleShell {
     public static void main(String[] args) throws java.io.IOException {
         ObjectMapper mapper = new ObjectMapper();
         YouAreEll webber = new YouAreEll(new MessageController(), new IdController());
+
+
+
         
         String commandLine;
         BufferedReader console = new BufferedReader
@@ -81,7 +85,6 @@ public class SimpleShell {
                 // ids
                 if (list.contains("ids") && list.size() == 1) {
                     String results = webber.get_ids();
-
                     SimpleShell.prettyPrint(results);
                     continue;
                 }
@@ -115,12 +118,26 @@ public class SimpleShell {
                     String friendID = list.get(4);
                     Message newMessage = new Message(message, name, friendID);
                     String messageToSend = mapper.writeValueAsString(newMessage);
-                    webber.MakeURLCall("/messages", "POST", messageToSend);
+                    webber.MakeURLCall("/ids/"+name+"/from/" + friendID, "POST", messageToSend);
                     continue;
                 }
 
-                if(list.contains("messages") && list.size()== 2){
-                    String results;
+                //send sender message
+                if(list.contains("send") && (list.size() == 3)){
+                    String name = list.get(1);
+                    String message = list.get(2);
+                    Message newMessage = new Message(message, name);
+                    String messageToSend = mapper.writeValueAsString(newMessage);
+                    webber.MakeURLCall("/ids/"+name+"/messages", "POST", messageToSend);
+                    continue;
+                }
+                //get messages userID
+                if(list.contains("messages") && list.contains("get")){
+                    String userId = list.get(2);
+                    String results = webber.MakeURLCall("/ids/" + userId + "/messages", "GET", "");
+                    SimpleShell.prettyPrint(results);
+                    continue;
+
                 }
 
 

@@ -7,10 +7,21 @@ import models.Id;
 import models.Message;
 
 public class MessageController {
-    ArrayList response = new ArrayList();
-
+    private ArrayList response = new ArrayList();
     private HashSet<Message> messagesSeen;
+
+
+    public MessageController(HashSet hashSet){
+        messagesSeen = hashSet;
+    }
+
+
     // why a HashSet??
+
+    public MessageController(){
+
+    }
+
 
     public ArrayList<Message> getMessages() {
         for(Message message: messagesSeen){
