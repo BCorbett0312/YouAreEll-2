@@ -22,6 +22,7 @@ public class SimpleShell {
         ObjectMapper mapper = new ObjectMapper();
         try{
             Object json = mapper.readValue(output, Object.class);
+
             String printOut = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
             System.out.println(printOut);
         }catch(IOException x){
@@ -80,6 +81,7 @@ public class SimpleShell {
                 // ids
                 if (list.contains("ids") && list.size() == 1) {
                     String results = webber.get_ids();
+
                     SimpleShell.prettyPrint(results);
                     continue;
                 }
@@ -97,10 +99,11 @@ public class SimpleShell {
                     String gitHub = list.get(1);
                     String toChangeTo = list.get(3);
 
+
                 }
 
                 // messages
-                if (list.contains("messages")) {
+                if (list.contains("messages") && (list.size()==1)) {
                     String results = webber.get_messages();
                     SimpleShell.prettyPrint(results);
                     continue;

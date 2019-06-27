@@ -2,11 +2,17 @@ package views;
 
 
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.*;
+import jdk.internal.org.objectweb.asm.TypeReference;
+import models.Id;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class YouAreEll {
@@ -15,6 +21,7 @@ public class YouAreEll {
     private IdController idCtrl;
     private OkHttpClient client = new OkHttpClient();
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    private ObjectMapper objectMapper = new ObjectMapper();
 
 
     public YouAreEll (MessageController m, IdController j) {
@@ -31,6 +38,8 @@ public class YouAreEll {
     }
 
     public String get_ids() {
+
+
         return MakeURLCall("/ids", "GET", "");
     }
 
@@ -51,12 +60,15 @@ public class YouAreEll {
     public String MakeURLCall(String mainurl, String method, String jpayload) {
         String server = "http://zipcode.rocks:8085" + mainurl;
 
+
+
+
         if(method.equals("GET")) {
            Request request = new Request.Builder()
                    .url(server)
                    .build();
            try (Response response = client.newCall(request).execute()) {
-
+               //idCtrl = objectMapper.readValue(response.body().string(), idCtrl.getClass());
                return response.body().string();
            }catch (IOException e){
                e.printStackTrace();
