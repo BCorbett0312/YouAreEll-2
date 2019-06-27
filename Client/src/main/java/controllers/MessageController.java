@@ -7,15 +7,26 @@ import models.Id;
 import models.Message;
 
 public class MessageController {
+    ArrayList response = new ArrayList();
 
     private HashSet<Message> messagesSeen;
     // why a HashSet??
 
     public ArrayList<Message> getMessages() {
-        return null;
+        for(Message message: messagesSeen){
+            response.add(message);
+        }
+
+        return response;
     }
     public ArrayList<Message> getMessagesForId(Id Id) {
-        return null;
+        for(Message message: messagesSeen){
+            if(message.getFromID().equals(Id)){
+                response.add(message);
+            }
+        }
+
+        return response;
     }
     public Message getMessageForSequence(String seq) {
         return null;

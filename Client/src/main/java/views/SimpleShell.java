@@ -10,10 +10,13 @@ import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.IdController;
 import controllers.MessageController;
+import models.Id;
+import models.Message;
 
 // Simple Shell is a Console view for views.YouAreEll.
 public class SimpleShell {
-
+    MessageController msgCont = new MessageController();
+    IdController idCont = new IdController();
 
     public static void prettyPrint(String output) {
         ObjectMapper mapper = new ObjectMapper();
@@ -28,7 +31,7 @@ public class SimpleShell {
 
     }
     public static void main(String[] args) throws java.io.IOException {
-
+        ObjectMapper mapper = new ObjectMapper();
         YouAreEll webber = new YouAreEll(new MessageController(), new IdController());
         
         String commandLine;
@@ -75,10 +78,25 @@ public class SimpleShell {
                 // Specific Commands.
 
                 // ids
-                if (list.contains("ids")) {
+                if (list.contains("ids") && list.size() == 1) {
                     String results = webber.get_ids();
                     SimpleShell.prettyPrint(results);
                     continue;
+                }
+                //ids new name github
+                if(list.contains("ids") && list.contains("new")){
+                    String name = list.get(2);
+                    String github = list.get(3);
+                    Id newUser = new Id(name, github);
+                    String newUserInfo = mapper.writeValueAsString(newUser);
+                    webber.MakeURLCall("/ids", "POST", newUserInfo);
+                    continue;
+                }
+                //change githubId tobechangedto
+                if(list.contains("change")){
+                    String gitHub = list.get(1);
+                    String toChangeTo = list.get(3);
+
                 }
 
                 // messages
@@ -87,6 +105,23 @@ public class SimpleShell {
                     SimpleShell.prettyPrint(results);
                     continue;
                 }
+                //send sender message to friendID
+                if(list.contains("send") && (list.contains("to"))){
+                    String name = list.get(1);
+                    String message = list.get(2);
+                    String friendID = list.get(4);
+                    Message newMessage = new Message(message, name, friendID);
+                    String messageToSend = mapper.writeValueAsString(newMessage);
+                    webber.MakeURLCall("/messages", "POST", messageToSend);
+                    continue;
+                }
+
+                if(list.contains("messages") && list.size()== 2){
+                    String results;
+                }
+
+
+
                 // you need to add a bunch more.
 
                 //!! command returns the last command in history

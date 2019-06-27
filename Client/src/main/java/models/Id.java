@@ -16,6 +16,7 @@ public class Id {
     }
 
     public Id(String name, String githubId) {
+        id = "-";
         this.name = name;
         this.github = githubId;
     }
@@ -44,12 +45,15 @@ public class Id {
         this.github = github;
     }
 
+
+
+
     @Override
     public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", github='" + github + '\'' +
+        return "{" +
+                "userid:"  + id + '\'' +
+                "name:" + name + '\'' +
+                ", github:'" + github + '\'' +
                 '}';
     }
 }
