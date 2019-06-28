@@ -2,16 +2,18 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.stream.Stream;
 
 import models.Id;
 import models.Message;
 
 public class MessageController {
     private ArrayList response = new ArrayList();
-    private HashSet<Message> messagesSeen;
+    private LinkedHashSet<Message> messagesSeen;
 
 
-    public MessageController(HashSet hashSet){
+    public MessageController(LinkedHashSet hashSet){
         messagesSeen = hashSet;
     }
 
@@ -23,19 +25,17 @@ public class MessageController {
     }
 
 
-    public HashSet<Message> getMessages() {
+    public LinkedHashSet<Message> getMessages() {
         return messagesSeen;
     }
 
-    public void setMessageSeen(HashSet<Message> messages){
+    public void setMessageSeen(LinkedHashSet<Message> messages){
         messagesSeen = messages;
     }
 
 
     public void printMessages(){
-        for(Message message: messagesSeen){
-            System.out.println(message.toString());
-        }
+        messagesSeen.stream().limit(5).forEach(e -> System.out.println(e.toString()));
     }
 
 

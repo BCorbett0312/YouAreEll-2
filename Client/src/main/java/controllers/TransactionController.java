@@ -11,6 +11,7 @@ import okhttp3.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 public class TransactionController {
@@ -58,7 +59,7 @@ public class TransactionController {
         else if(mainUrl.contains("/ids") && mainUrl.length()== 5){
                 getToIds();
             }
-        else if(mainUrl.contains("/messages") && mainUrl.length()== 8){
+        else if(mainUrl.contains("/messages") && mainUrl.length()== 9){
                 getToMessages();
             }
         else if(mainUrl.contains("/ids") && mainUrl.contains("/from")){
@@ -82,7 +83,7 @@ public class TransactionController {
     private void getToMessages(){
         setJsonResponse();
         try{
-            msgCtrl.setMessageSeen(mapper.readValue(responseBody, new TypeReference<HashSet<Message>>(){}));
+            msgCtrl.setMessageSeen(mapper.readValue(responseBody, new TypeReference<LinkedHashSet<Message>>(){}));
             msgCtrl.printMessages();
         }catch (IOException e){
             e.printStackTrace();
