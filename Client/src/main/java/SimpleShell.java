@@ -16,22 +16,24 @@ public class SimpleShell {
 
 
     public static void prettyPrint(String output) {
-        ObjectMapper mapper = new ObjectMapper();
-
-
-        try{
-            Object json = mapper.readValue(output, Object.class);
-            String printOut = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
-            System.out.println(printOut);
-        }catch(IOException x){
-            x.printStackTrace();
-        }
+//        ObjectMapper mapper = new ObjectMapper();
+//
+//
+//        try{
+//            Object json = mapper.readValue(output, Object.class);
+//            String printOut = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
+//            System.out.println(printOut);
+//        }catch(IOException x){
+//            x.printStackTrace();
+//        }
         // yep, make an effort to format things nicely, eh?
 
     }
     public static void main(String[] args) throws java.io.IOException {
         ObjectMapper mapper = new ObjectMapper();
-        YouAreEll webber = new YouAreEll(new MessageController(), new IdController());
+        MessageController msgCont = new MessageController();
+        IdController idController = new IdController();
+        YouAreEll webber = new YouAreEll(msgCont, idController);
 
 
 
@@ -82,7 +84,6 @@ public class SimpleShell {
                 // ids
                 if (list.contains("ids") && list.size() == 1) {
                     String results = webber.get_ids();
-                    SimpleShell.prettyPrint(results);
                     continue;
                 }
                 //ids new name github
@@ -92,20 +93,36 @@ public class SimpleShell {
                     Id newUser = new Id(name, github);
                     String newUserInfo = mapper.writeValueAsString(newUser);
                     webber.MakeURLCall("/ids", "POST", newUserInfo);
+
                     continue;
                 }
                 //change githubId tobechangedto
-                if(list.contains("change")){
+                if(list.contains("change") && list.size()==3){
                     String gitHub = list.get(1);
-                    String toChangeTo = list.get(3);
-
-
+                    String toChangeTo = list.get(2);
+                    if (idController.ListContains(gitHub) != null){
+                        Id toChange = idController.ListContains(gitHub);
+                        toChange.setName(toChangeTo);
+                        String jsonpayload = mapper.writeValueAsString(toChange);
+                        webber.MakeURLCall("/ids", "PUT", jsonpayload);
+                    }
+                    continue;
                 }
+
+
+
+
+
+
+
+
+
+
 
                 // messages
                 if (list.contains("messages") && (list.size()==1)) {
                     String results = webber.get_messages();
-                    SimpleShell.prettyPrint(results);
+
                     continue;
                 }
                 //send sender message to friendID
@@ -131,8 +148,7 @@ public class SimpleShell {
                 //get messages userID
                 if(list.contains("messages") && list.contains("get")){
                     String userId = list.get(2);
-                    String results = webber.MakeURLCall("/ids/" + userId + "/messages", "GET", "");
-                    SimpleShell.prettyPrint(results);
+                    webber.MakeURLCall("/ids/" + userId + "/messages", "GET", "");
                     continue;
 
                 }

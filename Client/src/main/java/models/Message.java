@@ -6,28 +6,32 @@ package models;
 public class Message {
     private String sequence;
     private String timestamp;
-    private String fromID;
-    private String toID;
+    private String fromid;
+    private String toid;
     private String message;
 
-    public Message (String sequence, String timestamp, String fromID, String toID, String message ){
+    public Message (String sequence, String timestamp, String fromid, String toid, String message ){
         this.sequence = sequence;
         this.timestamp = timestamp;
-        this.fromID = fromID;
-        this.toID = toID;
+        this.fromid = fromid;
+        this.toid = toid;
         this.message = message;
     }
 
     public Message (String message, String fromId, String toId) {
         this.sequence = "-";
-        this.fromID = fromId;
-        this.toID = toId;
+        this.fromid = fromId;
+        this.toid = toId;
         this.message = message;
     }
 
-    public Message(String message, String fromID){
-        this.fromID = fromID;
+    public Message(String message, String fromid){
+        this.fromid = fromid;
         this.message = message;
+
+    }
+
+    public Message(){
 
     }
 
@@ -47,20 +51,20 @@ public class Message {
         this.timestamp = timestamp;
     }
 
-    public String getFromID() {
-        return fromID;
+    public String getFromid() {
+        return fromid;
     }
 
-    public void setFromID(String fromID) {
-        this.fromID = fromID;
+    public void setFromid(String fromid) {
+        this.fromid = fromid;
     }
 
-    public String getToID() {
-        return toID;
+    public String getToid() {
+        return toid;
     }
 
-    public void setToID(String toID) {
-        this.toID = toID;
+    public void setToid(String toid) {
+        this.toid = toid;
     }
 
     public String getMessage() {
@@ -77,8 +81,8 @@ public class Message {
         return "***********************************************\n" +
                 "sequence: " + sequence + '\n' +
                 "timestamp: " + timestamp + '\n' +
-                "fromID: " + fromID + '\n' +
-                "toID: " + toID + '\n' +
+                "fromid: " + fromid + '\n' +
+                "toid: " + toid + '\n' +
                 "message: " + message + '\n';
     }
 }

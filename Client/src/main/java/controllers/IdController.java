@@ -23,9 +23,20 @@ public class IdController {
     }
 
     public ArrayList<Id> getIds() {
-
         return iDList;
     }
+
+    public Id ListContains(String toEval){
+        for (Id id: iDList) {
+            if (id.getGithub().equals(toEval)){
+                return id;
+            }
+        }
+        return null;
+    }
+
+
+
 
     public void printList(){
         for (Id id : iDList){
