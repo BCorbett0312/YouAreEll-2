@@ -61,9 +61,11 @@ public class TransactionController {
         else if(mainUrl.contains("/messages") && mainUrl.length()== 8){
                 getToMessages();
             }
-
-
+        else if(mainUrl.contains("/ids") && mainUrl.contains("/from")){
+            getToMessages();
         }
+        }
+
 
 
     private void getToIds (){

@@ -125,14 +125,11 @@ public class SimpleShell {
 
                     continue;
                 }
-                //send sender message to friendID
-                if(list.contains("send") && (list.contains("to"))){
-                    String name = list.get(1);
-                    String message = list.get(2);
-                    String friendID = list.get(4);
-                    Message newMessage = new Message(message, name, friendID);
-                    String messageToSend = mapper.writeValueAsString(newMessage);
-                    webber.MakeURLCall("/ids/"+name+"/from/" + friendID, "POST", messageToSend);
+                //get messages between userID and friendID
+                if(list.contains("get") && (list.contains("between"))){
+                    String name = list.get(3);
+                    String friendID = list.get(5);
+                    webber.MakeURLCall("/ids/"+name+"/from/" + friendID, "GET", "");
                     continue;
                 }
 
