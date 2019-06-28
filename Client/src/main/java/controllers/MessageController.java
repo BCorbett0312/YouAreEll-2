@@ -23,31 +23,39 @@ public class MessageController {
     }
 
 
-    public ArrayList<Message> getMessages() {
+    public HashSet<Message> getMessages() {
+        return messagesSeen;
+    }
+
+    public void setMessageSeen(HashSet<Message> messages){
+        messagesSeen = messages;
+    }
+
+
+    public void printMessages(){
         for(Message message: messagesSeen){
-            response.add(message);
+            System.out.println(message.toString());
         }
-
-        return response;
-    }
-    public ArrayList<Message> getMessagesForId(Id Id) {
-        for(Message message: messagesSeen){
-            if(message.getFromID().equals(Id)){
-                response.add(message);
-            }
-        }
-
-        return response;
-    }
-    public Message getMessageForSequence(String seq) {
-        return null;
-    }
-    public ArrayList<Message> getMessagesFromFriend(Id myId, Id friendId) {
-        return null;
     }
 
-    public Message postMessage(Id myId, Id toId, Message msg) {
-        return null;
-    }
+
+
+//    public ArrayList<Message> getMessagesForId(Id Id) {
+//
+//
+//        return response;
+//    }
+//    public Message getMessageForSequence(String seq) {
+//        return null;
+//    }
+//
+//
+//    public ArrayList<Message> getMessagesFromFriend(Id myId, Id friendId) {
+//        return null;
+//    }
+//
+//    public Message postMessage(Id myId, Id toId, Message msg) {
+//        return null;
+//    }
  
 }

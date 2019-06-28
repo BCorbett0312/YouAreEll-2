@@ -1,18 +1,12 @@
-package views;
-
-
-
-
-
-
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.*;
+
 import models.Id;
-import models.Message;
+
 import okhttp3.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
 
 
@@ -38,31 +32,16 @@ public class YouAreEll {
         System.out.println(urlhandler.MakeURLCall("/messages", "GET", ""));
     }
 
-    public String get_ids() {
-
-
-        return MakeURLCall("/ids", "GET", "");
+    public String get_ids() {return MakeURLCall("/ids", "GET", "");
     }
 
     public String get_messages() {
         return MakeURLCall("/messages", "GET", "");
     }
 
-    public String post_ids(){return MakeURLCall("/ids", "POST", "");}
-
-    public String put_ids(){ return MakeURLCall("/ids", "PUT", "");}
-
-    public String get_myIdMessages(String id){return MakeURLCall ("/ids/:mygithubid/messages", "GET", "");}
-
-    public String get_myMessagesSequence(){return MakeURLCall("/ids/:mygithubid/messages/:sequence", "GET", "");}
-
-    public String get_messagesFromFriend(){ return MakeURLCall("/ids/:mygithubid/from/:friendgithubid", "GET", "");}
 
     public String MakeURLCall(String mainurl, String method, String jpayload) {
         String server = "http://zipcode.rocks:8085" + mainurl;
-
-
-
 
         if(method.equals("GET")) {
            Request request = new Request.Builder()
@@ -70,6 +49,10 @@ public class YouAreEll {
                    .build();
            try (Response response = client.newCall(request).execute()) {
                String test = response.body().string();
+//               List<Id> results = objectMapper.readValue(response,
+//                       new TypeReference<List<Id>>() {} );
+               List<Id> idList = objectMapper.readValue(test, new TypeReference<List<Id>>(){});
+
                return test;
            }catch (IOException e){
                e.printStackTrace();

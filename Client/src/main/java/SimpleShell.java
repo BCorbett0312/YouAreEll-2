@@ -1,5 +1,3 @@
-package views;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,14 +5,13 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import controllers.IdController;
 import controllers.MessageController;
 import models.Id;
 import models.Message;
 
-// Simple Shell is a Console view for views.YouAreEll.
+// Simple Shell is a Console view for YouAreEll.
 public class SimpleShell {
 
 

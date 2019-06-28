@@ -8,6 +8,7 @@ public class Id {
     private String id;
     private String name;
     private String github;
+    private String userId;
 
     public Id(){
 
@@ -23,6 +24,14 @@ public class Id {
         id = "-";
         this.name = name;
         this.github = githubId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getId() {
@@ -51,10 +60,10 @@ public class Id {
 
     @Override
     public String toString() {
-        return "{" +
-                "userid:"  + id + '\'' +
-                "name:" + name + '\'' +
-                ", github:" + github + '\'' +
-                '}';
+        return "***************************\n"+
+                "userid: "  + id + '\n' +
+                "name: " + name + '\n' +
+                "github: " + github + '\n';
+
     }
 }
