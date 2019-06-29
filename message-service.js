@@ -39,7 +39,7 @@ export default class MessageService {
                 }
             };
 
-            request.open("POST", `http://zipcode.rocks:8085/ids/BCorbett0312/messages`);
+            request.open("POST", `http://zipcode.rocks:8085/ids/${message.fromid}/messages`);
 
             request.send(JSON.stringify(message));
         });

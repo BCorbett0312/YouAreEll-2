@@ -25,13 +25,12 @@ function populateThread(messages) {
     })
 }
 
-
+form.addEventListener("click", createFormListener);
 
 function createFormListener() {
 
 
     form.onsubmit = function (event) {
-        console.log("testbeforeCreate");
         event.preventDefault();
 
         const data = {
