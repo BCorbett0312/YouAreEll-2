@@ -1,11 +1,14 @@
 /* reseting browser styles */
 * {
     box-sizing: border-box;
-    font-family: system-ui;
+    font-family: 'DM Serif Display', serif;
+
 }
 
 body {
     margin: 0;
+    background-color: #a6a69f;
+    color: black;
 }
 
 header {
@@ -21,7 +24,14 @@ header h1,
 header h2 {
     margin-right: 10px;
     margin-left: 10px;
+    color: #fffc5c;
 }
+
+body h3{
+    color: #fffc5c;
+
+}
+
 
 sidebar header.open {
     height: 225px;
@@ -55,6 +65,7 @@ sidebar header input {
 #message-list li {
     padding: 10px 20px;
     border-bottom: 1px solid grey;
+    text-align: center;
 }
 
 #new-message-form {
@@ -66,6 +77,7 @@ sidebar header input {
 #new-message {
     height: 30vh;
     border-top: 1px solid grey;
+
 }
 
 #new-message-form textarea {
@@ -77,5 +89,8 @@ sidebar header input {
 #new-message-form button {
     height: 50px;
     margin: 10px;
-    border-radius: 5px
+    border-radius: 25px;
+
+
+
 }
